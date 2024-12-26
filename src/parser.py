@@ -53,7 +53,7 @@ def compute_distance(record1: SeqRecord, record2: SeqRecord) -> int:
     return dist
 
 
-def compute_jc_distances(chunks: List[List[SeqRecord]], seq1: str, seq2: str):
+def compute_jc_distances(chunks: List[List[SeqRecord]], seq1: str, seq2: str, bar_width=0.001):
     jc_distances = []
     distances = []
     for chunk in chunks:
@@ -64,7 +64,8 @@ def compute_jc_distances(chunks: List[List[SeqRecord]], seq1: str, seq2: str):
         jc_dist = -0.75 * (math.log(1 - (4 / 3) * dist))
         jc_distances.append(jc_dist)
 
-    plt.hist(jc_distances)
+    bars = int(max(distances) // bar_width)
+    plt.hist(jc_distances, bins=bars, alpha=0.7)
 
 
 if __name__ == '__main__':
